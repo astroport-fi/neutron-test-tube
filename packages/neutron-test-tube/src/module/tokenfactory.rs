@@ -4,7 +4,7 @@ use neutron_std::types::osmosis::tokenfactory::v1beta1::{
     MsgSetDenomMetadataResponse, MsgUpdateParams, MsgUpdateParamsResponse,
     QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse,
     QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse, QueryParamsRequest,
-    QueryParamsResponse
+    QueryParamsResponse,
 };
 
 use test_tube_ntrn::module::Module;
@@ -68,7 +68,9 @@ mod tests {
     use cosmwasm_std::{coins, Coin, Uint128};
     use neutron_std::shim::Any;
     use neutron_std::types::cosmos::adminmodule::adminmodule::MsgSubmitProposal;
-    use neutron_std::types::osmosis::tokenfactory::v1beta1::{MsgBurn, MsgCreateDenom, MsgMint, MsgUpdateParams, QueryDenomsFromCreatorRequest};
+    use neutron_std::types::osmosis::tokenfactory::v1beta1::{
+        MsgBurn, MsgCreateDenom, MsgMint, MsgUpdateParams, QueryDenomsFromCreatorRequest,
+    };
     use neutron_std::types::osmosis::tokenfactory::Params;
     use prost::Message;
 
@@ -80,13 +82,10 @@ mod tests {
     fn tokenfactory_integration() {
         let app = NeutronTestApp::new();
         let signer = app
-            .init_account(
-                &[Coin {
-                    denom: "untrn".to_string(),
-                    amount: Uint128::new(100_000_000_000_000_000_000),
-                }],
-                false,
-            )
+            .init_account(&[Coin {
+                denom: "untrn".to_string(),
+                amount: Uint128::new(100_000_000_000_000_000_000),
+            }])
             .unwrap();
         let tokenfactory = TokenFactory::new(&app);
         let bank = Bank::new(&app);
@@ -179,7 +178,7 @@ mod tests {
 
         // we creating an addr which could send proposals directly
         let admin = app
-            .init_account(&coins(1_000_000_000_000u128, "untrn"), true)
+            .init_admin_account(&coins(1_000_000_000_000u128, "untrn"))
             .unwrap();
         // address of admin moudulele. it is an authority for all modules
         let adminmodule_addr = "neutron1hxskfdxpp5hqgtjj6am6nkjefhfzj359x0ar3z";
@@ -203,12 +202,11 @@ mod tests {
         };
 
         // submit as a proposal
-        let msg = MsgSubmitProposal{messages: vec![tfmsg_any], proposer: admin.address()};
+        let msg = MsgSubmitProposal {
+            messages: vec![tfmsg_any],
+            proposer: admin.address(),
+        };
 
-        adm.submit_proposal(
-            msg,
-            &admin,
-        )
-        .unwrap();
+        adm.submit_proposal(msg, &admin).unwrap();
     }
 }

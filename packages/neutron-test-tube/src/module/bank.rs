@@ -51,11 +51,9 @@ mod tests {
     fn bank_integration() {
         let app = NeutronTestApp::new();
         let signer = app
-            .init_account(&[Coin::new(100_000_000_000u128, "untrn")], false)
+            .init_account(&[Coin::new(100_000_000_000u128, "untrn")])
             .unwrap();
-        let receiver = app
-            .init_account(&[Coin::new(1u128, "untrn")], false)
-            .unwrap();
+        let receiver = app.init_account(&[Coin::new(1u128, "untrn")]).unwrap();
         let bank = Bank::new(&app);
 
         let response = bank
