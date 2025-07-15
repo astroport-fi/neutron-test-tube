@@ -2,6 +2,8 @@ module github.com/neutron-org/neutron-test-tube/neutron-test-tube
 
 go 1.22.6
 
+toolchain go1.23.0
+
 require (
 	cosmossdk.io/log v1.4.1
 	cosmossdk.io/math v1.3.0
@@ -219,8 +221,8 @@ replace (
 	// github.com/CosmWasm/wasmd => github.com/neutron-org/wasmd v0.51.0
 	// github.com/cosmos/cosmos-sdk => github.com/neutron-org/cosmos-sdk v0.50.7-neutron
 	// github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
-	github.com/CosmWasm/wasmd => github.com/neutron-org/wasmd v0.51.0
-	github.com/cosmos/admin-module/v2 => github.com/neutron-org/admin-module/v2 v2.0.0
+	github.com/CosmWasm/wasmd => github.com/neutron-org/wasmd v0.53.0-neutron
+	github.com/cosmos/admin-module/v2 => github.com/neutron-org/admin-module/v2 v2.0.2
 	github.com/cosmos/cosmos-sdk => github.com/neutron-org/cosmos-sdk v0.50.7-neutron
 
 	// Not sure why exactly we need this looking at deps but go.mod isn't
